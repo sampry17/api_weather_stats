@@ -1,0 +1,154 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/weather/historical":
+    get:
+      summary: Получить температуру за последние 24 часа
+      description: Возвращает данные о температуре за последние 24 часа.
+      responses:
+        '200':
+          description: Успешный ответ с данными температуры
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    timestamp:
+                      type: integer
+                      description: Временная метка (UNIX timestamp)
+                    temperature:
+                      type: number
+                      format: float
+                      description: Температура в градусах Цельсия
+        '500':
+          description: Внутренняя ошибка сервера
+
+  "/api/v1/weather/historical/max":
+    get:
+      summary: Получить максимальную температуру за последние 24 часа
+      description: Возвращает максимальную температуру за последние 24 часа.
+      responses:
+        '200':
+          description: Успешный ответ с максимальной температурой
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: integer
+                    description: Временная метка (UNIX timestamp)
+                  temperature:
+                    type: number
+                    format: float
+                    description: Максимальная температура в градусах Цельсия
+        '500':
+          description: Внутренняя ошибка сервера
+
+  "/api/v1/weather/historical/min":
+    get:
+      summary: Получить минимальную температуру за последние 24 часа
+      description: Возвращает минимальную температуру за последние 24 часа.
+      responses:
+        '200':
+          description: Успешный ответ с минимальной температурой
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: integer
+                    description: Временная метка (UNIX timestamp)
+                  temperature:
+                    type: number
+                    format: float
+                    description: Минимальная температура в градусах Цельсия
+        '500':
+          description: Внутренняя ошибка сервера
+
+  "/api/v1/weather/historical/avg":
+    get:
+      summary: Получить среднюю температуру за последние 24 часа
+      description: Возвращает среднюю температуру за последние 24 часа.
+      responses:
+        '200':
+          description: Успешный ответ со средней температурой
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  avg_temperature:
+                    type: number
+                    format: float
+                    description: Средняя температура в градусах Цельсия
+        '500':
+          description: Внутренняя ошибка сервера
+
+  "/api/v1/weather/current":
+    get:
+      summary: Получить текущую температуру
+      description: Возвращает данные о текущей температуре.
+      responses:
+        '200':
+          description: Успешный ответ с текущей температурой
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: integer
+                    description: Временная метка (UNIX timestamp)
+                  temperature:
+                    type: number
+                    format: float
+                    description: Текущая температура в градусах Цельсия
+        '500':
+          description: Внутренняя ошибка сервера
+
+  "/api/v1/weather/by_time":
+    get:
+      summary: Найти температуру ближайшую к переданному timestamp
+      description: Возвращает данные о температуре, ближайшие к указанному временно́му штампу.
+      parameters:
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            description: Временная метка (UNIX timestamp)
+      responses:
+        '200':
+          description: Успешный ответ с температурой
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: integer
+                    description: Временная метка (UNIX timestamp) ближайшего к timestamp значения
+                  temperature:
+                    type: number
+                    format: float
+                    description: Температура в градусах Цельсия
+        '400':
+          description: Неверный запрос (если параметр timestamp отсутствует)
+        '404':
+          description: Не найдено (если timestamp за пределами 24-часового диапазона)
+        '500':
+          description: Внутренняя ошибка сервера
+
+servers:
+  - url: http://{defaultHost}
+    variables:
+      defaultHost:
+        default: 127.0.0.1:3000/
+
