@@ -1,24 +1,17 @@
-# README
+# Weather API Service
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Описание
 
-Things you may want to cover:
+Этот проект представляет собой тестовое задание компании Edstein LLC на позицию Ruby on Rails разработчика. Целью задания является создание веб-приложения, которое предоставляет информацию о температуре с использованием данных из AccuWeather API.
 
-* Ruby version
+## Задание
 
-* System dependencies
+Разработайте API, который предоставляет следующие эндпоинты:
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- `/weather/current` - Возвращает текущую температуру.
+- `/weather/historical` - Возвращает почасовую температуру за последние 24 часа.
+- `/weather/historical/max` - Возвращает максимальную температуру за последние 24 часа.
+- `/weather/historical/min` - Возвращает минимальную температуру за последние 24 часа.
+- `/weather/historical/avg` - Возвращает среднюю температуру за последние 24 часа.
+- `/weather/by_time` - Находит температуру, ближайшую к переданному timestamp (например, 1621823790 должен вернуть температуру за 2021-05-24 08:00). Если данных для указанного времени нет, возвращает 404.
+- `/health` - Проверяет статус бэкенда.
